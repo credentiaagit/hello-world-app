@@ -13,7 +13,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t hello-world-flask .'
+                sh 'sudo docker build -t hello-world-flask .'
             }
         }
 
