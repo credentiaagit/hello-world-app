@@ -2,9 +2,12 @@ pipeline {
     agent any
 
     stages {
-        stage('Clone Repository') {
+        stage('Checkout Repository') {
             steps {
-                git 'https://github.com/credentiaagit/hello-world-app.git'
+                // Use SSH and the credentials you added in Jenkins
+                git branch: 'main',
+                    credentialsId: 'git-jenkins', // SSH key credential ID
+                    url: 'git@github.com:credentiaagit/hello-world-app.git'
             }
         }
 
@@ -16,7 +19,10 @@ pipeline {
 
         stage('Run Container') {
             steps {
-                sh 'docker run -d -p 5000:5000 --name hello-world hello-world-flask || true'
+                // Stop any existing container first
+                sh 'docker rm -f hello-world || true'
+                // Run new container
+                sh 'docker run -d -p 5000:5000 --name hello-world hello-world-flask'
             }
         }
     }
