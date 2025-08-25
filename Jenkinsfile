@@ -20,9 +20,9 @@ pipeline {
         stage('Run Container') {
             steps {
                 // Stop any existing container first
-                sh 'docker rm -f hello-world || true'
+                sh 'sudo docker rm -f hello-world || true'
                 // Run new container
-                sh 'docker run -d -p 5000:5000 --name hello-world hello-world-flask'
+                sh 'sudo docker run -d -p 5000:5000 --name hello-world hello-world-flask'
             }
         }
     }
